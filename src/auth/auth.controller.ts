@@ -25,4 +25,13 @@ export class AuthController {
   async login(@Body() { email, password, ip }: { email: string; password: string; ip: string }) {
     return this.authService.login(email, password, ip);
   }
+
+  @Post('activate')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'User activation' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'User successfully activated.' })
+  @ApiBody({ schema: { properties: { email: { type: 'string' }, otp: { type: 'string' } } } })
+  async activateUser(@Body() { email, otp }: { email: string; otp: string }) {
+    return this.authService.activateUser(email, otp);
+  }
 }
